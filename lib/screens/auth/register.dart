@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -83,20 +83,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                const Text(
+                Text(
                   'Create Account',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Fill in your details to get started',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -168,10 +168,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                     ),
-                    const Text(
+                    Text(
                       'I agree to the Terms and Conditions',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                       ),
                     ),
                   ],
@@ -186,20 +186,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Already have an account?",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign In',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

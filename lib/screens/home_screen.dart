@@ -848,12 +848,14 @@ class HomeScreenState extends State<HomeScreen> {
                       budget.spent > budget.budget_limit ? AppTheme.error : AppTheme.success,
                     ),
                     const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                                          Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark 
+                            ? Colors.grey.shade800 
+                            : Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       child: Text(
                         'Period: ${DateFormat('MMM dd, yyyy').format(budget.startDate)} - ${DateFormat('MMM dd, yyyy').format(budget.endDate)}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -977,7 +979,7 @@ class HomeScreenState extends State<HomeScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             style: TextButton.styleFrom(
-              foregroundColor: Colors.grey.shade600,
+              foregroundColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
             ),
             child: const Text('Close'),
           ),
@@ -999,7 +1001,7 @@ class HomeScreenState extends State<HomeScreen> {
           Text(
             value,
             style: TextStyle(
-              color: color ?? Colors.black,
+              color: color ?? Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
           ),

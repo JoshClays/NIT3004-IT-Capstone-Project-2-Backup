@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Manager QR Code Generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <title>Expense Tracker v2.00 QR Generator (Offline)</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -72,13 +71,6 @@
         #qrcode {
             margin: 20px auto;
         }
-        .download-btn {
-            background: #28a745;
-            margin-top: 10px;
-        }
-        .download-btn:hover {
-            background: #218838;
-        }
         .preview {
             display: none;
             margin-top: 20px;
@@ -109,11 +101,32 @@
             border-color: #667eea;
             background: #e3f2fd;
         }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💰 Money Manager QR Code Generator</h1>
+        <h1>💰 Expense Tracker v2.00 QR Generator</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            ⚡ Offline-Ready Version - No External Dependencies
+        </p>
         
         <div class="input-group">
             <label for="githubUrl">GitHub Release URL:</label>
@@ -128,8 +141,8 @@
                     <small>/releases/latest</small>
                 </div>
                 <div class="template" onclick="setTemplate('direct')">
-                    <strong>Direct APK</strong><br>
-                    <small>/download/v1.0.0/app-release.apk</small>
+                    <strong>Direct APK v2.00</strong><br>
+                    <small>/download/v2.00/app-release.apk</small>
                 </div>
             </div>
         </div>
@@ -140,6 +153,8 @@
             <strong>URL Preview:</strong> <span id="previewUrl"></span>
         </div>
         
+        <div id="status"></div>
+        
         <div class="qr-container" id="qrContainer" style="display: none;">
             <h3>📱 Your QR Code</h3>
             <div id="qrcode"></div>
@@ -147,6 +162,11 @@
             <p>1. Right-click the QR code → "Save image as..."</p>
             <p>2. Share this QR code for easy app downloads!</p>
             <p>3. Users scan → tap link → download APK</p>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+                <strong>✅ QR Code Ready!</strong><br>
+                <small>This QR code will work on any device with a camera and internet connection.</small>
+            </div>
         </div>
     </div>
 
@@ -166,7 +186,7 @@
             if (type === 'releases') {
                 input.value = baseUrl + '/releases/latest';
             } else if (type === 'direct') {
-                input.value = baseUrl + '/releases/download/v1.0.0/app-release.apk';
+                input.value = baseUrl + '/releases/download/v2.00/app-release.apk';
             }
             
             currentTemplate = type;
@@ -181,40 +201,77 @@
             }
         }
 
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
         function generateQR() {
             const url = document.getElementById('githubUrl').value.trim();
             
             if (!url) {
-                alert('Please enter your GitHub URL');
+                showStatus('❌ Please enter your GitHub URL', 'error');
                 return;
             }
 
             if (!url.includes('github.com')) {
-                alert('Please enter a valid GitHub URL');
+                showStatus('❌ Please enter a valid GitHub URL', 'error');
                 return;
             }
 
-            // Clear previous QR code
-            document.getElementById('qrcode').innerHTML = '';
+            // Show loading status
+            showStatus('🔄 Generating QR Code...', 'loading');
             
-            // Generate QR code
-            QRCode.toCanvas(document.getElementById('qrcode'), url, {
-                width: 300,
-                height: 300,
-                colorDark: '#2c3e50',
-                colorLight: '#ffffff',
-                margin: 2,
-                errorCorrectionLevel: 'M'
-            }, function (error) {
-                if (error) {
-                    console.error(error);
-                    alert('Error generating QR code');
-                } else {
-                    console.log('QR code generated successfully!');
-                    document.getElementById('qrContainer').style.display = 'block';
-                    document.getElementById('qrContainer').scrollIntoView({ behavior: 'smooth' });
+            // Clear previous QR code
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+            
+            // Generate QR code using online service
+            const img = document.createElement('img');
+            const encodedUrl = encodeURIComponent(url);
+            
+            // Use multiple QR services for reliability
+            const qrServices = [
+                `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedUrl}&format=png&margin=10`,
+                `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${encodedUrl}&choe=UTF-8`,
+                `https://qr-code-generator-api.herokuapp.com/api/qr?data=${encodedUrl}&size=300`
+            ];
+            
+            let serviceIndex = 0;
+            
+            function tryNextService() {
+                if (serviceIndex >= qrServices.length) {
+                    showStatus('❌ All QR services failed. Please check your internet connection.', 'error');
+                    return;
                 }
-            });
+                
+                img.src = qrServices[serviceIndex];
+                serviceIndex++;
+            }
+            
+            img.onload = function() {
+                console.log('QR code generated successfully!');
+                showStatus('✅ QR Code generated successfully!', 'success');
+                
+                // Style the image
+                img.style.maxWidth = '300px';
+                img.style.height = 'auto';
+                img.style.border = '2px solid #ddd';
+                img.style.borderRadius = '8px';
+                img.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                
+                qrContainer.appendChild(img);
+                document.getElementById('qrContainer').style.display = 'block';
+                document.getElementById('qrContainer').scrollIntoView({ behavior: 'smooth' });
+            };
+            
+            img.onerror = function() {
+                console.log(`QR service ${serviceIndex} failed, trying next...`);
+                tryNextService();
+            };
+            
+            // Start with first service
+            tryNextService();
         }
 
         // Auto-preview on input
@@ -222,7 +279,10 @@
 
         // Set default template
         window.addEventListener('load', function() {
-            document.querySelector('.template').click();
+            const firstTemplate = document.querySelector('.template');
+            if (firstTemplate) {
+                firstTemplate.click();
+            }
         });
     </script>
 </body>

@@ -135,8 +135,10 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
           widget.budget == null ? 'Create Budget' : 'Edit Budget',
@@ -144,7 +146,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.black87,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -160,12 +162,16 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.blue.shade50, Colors.indigo.shade50],
+                      colors: isDark 
+                        ? [Colors.blue.shade900.withOpacity(0.3), Colors.indigo.shade900.withOpacity(0.3)]
+                        : [Colors.blue.shade50, Colors.indigo.shade50],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.blue.shade200),
+                    border: Border.all(
+                      color: isDark ? Colors.blue.shade700.withOpacity(0.5) : Colors.blue.shade200
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,12 +179,12 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade100,
+                          color: isDark ? Colors.blue.shade800.withOpacity(0.5) : Colors.blue.shade100,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Icon(
                           Icons.lightbulb_outline,
-                          color: Colors.blue.shade700,
+                          color: isDark ? Colors.blue.shade300 : Colors.blue.shade700,
                           size: 20,
                         ),
                       ),
@@ -191,7 +197,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                               'Smart Budget Creation',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.blue.shade800,
+                                color: isDark ? Colors.blue.shade200 : Colors.blue.shade800,
                                 fontSize: 14,
                               ),
                             ),
@@ -199,7 +205,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                             Text(
                               'Creating a budget will automatically add it as an expense category for easy transaction tracking.',
                               style: TextStyle(
-                                color: Colors.blue.shade700,
+                                color: isDark ? Colors.blue.shade300 : Colors.blue.shade700,
                                 fontSize: 12,
                                 height: 1.3,
                               ),
@@ -217,11 +223,13 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
               // Category Field
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: isDark 
+                        ? Colors.black.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
@@ -238,7 +246,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Theme.of(context).cardColor,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
                   textCapitalization: TextCapitalization.words,
@@ -255,11 +263,13 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
               // Budget Limit Field
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: isDark 
+                        ? Colors.black.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
@@ -277,7 +287,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Theme.of(context).cardColor,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
                   validator: (value) {
@@ -298,7 +308,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                 'Budget Period',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey[800],
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 12),
@@ -306,11 +316,13 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
               // Start Date
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: isDark 
+                        ? Colors.black.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
@@ -321,12 +333,12 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   leading: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.green.shade50,
+                      color: isDark ? Colors.green.shade800.withOpacity(0.5) : Colors.green.shade50,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       Icons.play_arrow,
-                      color: Colors.green.shade600,
+                      color: isDark ? Colors.green.shade300 : Colors.green.shade600,
                       size: 20,
                     ),
                   ),
@@ -336,9 +348,9 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   ),
                   subtitle: Text(
                     DateFormat('MMM dd, yyyy').format(_startDate),
-                    style: TextStyle(color: Colors.grey[600]),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6)),
                   ),
-                  trailing: Icon(Icons.calendar_today, color: Colors.grey[400]),
+                  trailing: Icon(Icons.calendar_today, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
                   onTap: () => _selectStartDate(context),
                 ),
               ),
@@ -347,11 +359,13 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
               // End Date
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: isDark 
+                        ? Colors.black.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
@@ -362,12 +376,12 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   leading: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade50,
+                      color: isDark ? Colors.red.shade800.withOpacity(0.5) : Colors.red.shade50,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       Icons.stop,
-                      color: Colors.red.shade600,
+                      color: isDark ? Colors.red.shade300 : Colors.red.shade600,
                       size: 20,
                     ),
                   ),
@@ -377,9 +391,9 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   ),
                   subtitle: Text(
                     DateFormat('MMM dd, yyyy').format(_endDate),
-                    style: TextStyle(color: Colors.grey[600]),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6)),
                   ),
-                  trailing: Icon(Icons.calendar_today, color: Colors.grey[400]),
+                  trailing: Icon(Icons.calendar_today, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
                   onTap: () => _selectEndDate(context),
                 ),
               ),
@@ -392,7 +406,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _saveBudget,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue.shade600,
+                    backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),

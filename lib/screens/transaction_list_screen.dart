@@ -48,12 +48,15 @@ class TransactionListScreenState extends State<TransactionListScreen> {
       
       if (user != null) {
         final transactions = await DatabaseService.instance.getTransactions(user.id!);
+        print('TransactionListScreen: Loaded ${transactions.length} transactions for user ${user.id}');
         setState(() {
           _allTransactions = transactions;
           _filteredTransactions = transactions;
           _isLoading = false;
         });
+        _applyFilters(); // Apply any existing filters
       } else {
+        print('TransactionListScreen: No user session found');
         setState(() {
           _allTransactions = [];
           _filteredTransactions = [];
@@ -66,6 +69,7 @@ class TransactionListScreenState extends State<TransactionListScreen> {
         }
       }
     } catch (e) {
+      print('TransactionListScreen: Error loading transactions: $e');
       setState(() {
         _isLoading = false;
       });
@@ -654,6 +658,7 @@ class TransactionListScreenState extends State<TransactionListScreen> {
 
   // Public method to refresh transactions from external calls
   void refreshTransactions() {
+    print('TransactionListScreen: refreshTransactions() called');
     _refreshTransactions();
   }
 

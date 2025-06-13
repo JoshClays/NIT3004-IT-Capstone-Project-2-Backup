@@ -15,7 +15,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   int _currentIndex = 0;
   late AnimationController _fabAnimationController;
   late Animation<double> _fabScaleAnimation;
@@ -53,6 +53,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     
     // Initialize screens with keys
     _screens = [
@@ -82,8 +83,18 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _fabAnimationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // Refresh current screen when app comes back to foreground
+      _refreshCurrentScreen(_currentIndex);
+    }
   }
 
   Widget _buildNavItem(int index) {
@@ -98,6 +109,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
           setState(() {
             _currentIndex = index;
           });
+          
+          // Refresh the screen when navigating to it
+          _refreshCurrentScreen(index);
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
@@ -262,6 +276,26 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
     _transactionKey.currentState?.refreshTransactions();
     // Refresh budget screen
     _budgetKey.currentState?.refreshBudgets();
+  }
+
+  void _refreshCurrentScreen(int index) {
+    // Add a small delay to ensure the navigation animation completes
+    Future.delayed(const Duration(milliseconds: 100), () {
+      switch (index) {
+        case 0: // Home
+          _homeKey.currentState?.refreshData();
+          break;
+        case 1: // Transactions
+          _transactionKey.currentState?.refreshTransactions();
+          break;
+        case 2: // Budgets
+          _budgetKey.currentState?.refreshBudgets();
+          break;
+        case 3: // Categories
+          // Categories screen doesn't need refresh as it's stateless
+          break;
+      }
+    });
   }
 
   Widget _buildTransactionTypeButton({

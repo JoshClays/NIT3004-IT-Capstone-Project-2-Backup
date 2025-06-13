@@ -15,7 +15,7 @@ class ConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -24,29 +24,29 @@ class ConfirmationScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 40),
-              const Text(
+              Text(
                 'Account Created!',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 20),
               Text(
                 'Hi $name, your account has been successfully created.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 email,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.deepOrangeAccent,
+                  color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

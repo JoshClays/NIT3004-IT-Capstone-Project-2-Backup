@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -89,20 +89,20 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                const Text(
+                Text(
                   'Welcome Back',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Sign in to continue',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -148,10 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       },
                     ),
-                    const Text(
+                    Text(
                       'Remember me',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                         fontSize: 14,
                       ),
                     ),
@@ -160,10 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         // Forgot password functionality
                       },
-                      child: const Text(
+                      child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                         ),
                       ),
@@ -180,10 +180,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Don't have an account?",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                       ),
                     ),
                     TextButton(
@@ -195,10 +195,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
