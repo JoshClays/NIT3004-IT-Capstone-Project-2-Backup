@@ -9,7 +9,7 @@
 4. **Follow installation steps** below
 
 ### Option 2: Direct Download
-1. **Visit**: [GitHub Releases](https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2/releases)
+1. **Visit**: [GitHub Releases](https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2-Backup/releases)
 2. **Download**: Latest `app-release.apk`
 3. **Follow installation steps** below
 
@@ -85,7 +85,7 @@ Since this app isn't from Google Play Store, you need to allow installation from
 
 ## 📞 Need Help?
 
-- **Issues**: [Report on GitHub](https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2/issues)
+- **Issues**: [Report on GitHub](https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2-Backup/issues)
 - **Questions**: Check existing GitHub issues first
 - **Updates**: Watch the repository for new releases
 

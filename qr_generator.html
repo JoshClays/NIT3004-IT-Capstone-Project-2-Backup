@@ -117,7 +117,7 @@
         
         <div class="input-group">
             <label for="githubUrl">GitHub Release URL:</label>
-            <input type="text" id="githubUrl" placeholder="https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2/releases/latest">
+            <input type="text" id="githubUrl" placeholder="https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2-Backup/releases/latest">
         </div>
 
         <div class="input-group">
@@ -161,7 +161,7 @@
             event.target.closest('.template').classList.add('active');
             
             const input = document.getElementById('githubUrl');
-            const baseUrl = input.value.replace(/\/releases.*$/, '') || 'https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2';
+            const baseUrl = input.value.replace(/\/releases.*$/, '') || 'https://github.com/JoshClays/NIT3004-IT-Capstone-Project-2-Backup';
             
             if (type === 'releases') {
                 input.value = baseUrl + '/releases/latest';

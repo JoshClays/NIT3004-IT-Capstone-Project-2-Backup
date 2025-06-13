@@ -192,8 +192,7 @@ class _ExportOptionsDialogState extends State<ExportOptionsDialog> with TickerPr
                                 const SizedBox(height: 8),
                                 Text(
                                   '📁 Downloads: /storage/emulated/0/Download/\n'
-                                  '📱 Access via: File Manager → Downloads\n'
-                                  '💻 Pull to PC: Use pull_exports.ps1 script',
+                                  '📱 Access via: File Manager → Downloads',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.blue.shade600,
