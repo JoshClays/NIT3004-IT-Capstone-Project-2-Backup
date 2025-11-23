@@ -46,4 +46,4 @@ Victoria University (Sydney)
 
 ---
 
-If you want, I can also create a **short resume-ready project summary** or a **portfolio section** to pair with this.
+
